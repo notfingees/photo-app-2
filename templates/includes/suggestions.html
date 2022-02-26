@@ -1,0 +1,78 @@
+
+<div id="recommendations">
+
+    <img src={{user.get('profile_url')}}
+    class="profilephoto" alt="{{user.get('first_name')}} {{user.get('last_name')}} profile picture" />
+    <p id="username_big">{{user.get('username')}}</p>
+
+    <p id="suggestions_for_you">Suggestions for you</p>
+
+
+    {% for suggestion in suggestions %}
+    <div id="suggestion">
+        <img src={{suggestion.get('profile_url')}}
+    class="suggested_pfp" alt="{{suggestion.get('first_name')}} {{suggestion.get('last_name')}} suggestions profile picture"/>
+        <div id="suggestion_name_div">
+        <p id="suggestion_name">{{suggestion.get('username')}}</p>
+        <p id="suggested_for_you">suggested for you</p>
+        </div>
+        <a href="#" id="follow">follow</a>
+
+    </div>
+    {% endfor %}
+
+<!--
+
+    <div id="suggestion">
+        <img src={{suggestions[0].get('profile_url')}}
+    class="suggested_pfp" />
+        <div id="suggestion_name_div">
+        <p id="suggestion_name">{{suggestions[0].get('username')}}</p>
+        <p id="suggested_for_you">suggested for you</p>
+        </div>
+        <a href="#" id="follow">follow</a>
+
+    </div>
+    <div id="suggestion">
+        <img src="https://picsum.photos/200"
+    class="suggested_pfp" />
+        <div id="suggestion_name_div">
+        <p id="suggestion_name">person 2</p>
+        <p id="suggested_for_you">suggested for you</p>
+        </div>
+        <a href="#" id="follow">follow</a>
+
+    </div>
+    <div id="suggestion">
+        <img src="https://picsum.photos/200"
+    class="suggested_pfp" />
+        <div id="suggestion_name_div">
+        <p id="suggestion_name">person 3</p>
+        <p id="suggested_for_you">suggested for you</p>
+        </div>
+        <a href="#" id="follow">follow</a>
+
+    </div>
+    <div id="suggestion">
+        <img src="https://picsum.photos/200"
+    class="suggested_pfp" />
+        <div id="suggestion_name_div">
+        <p id="suggestion_name">person 4</p>
+        <p id="suggested_for_you">suggested for you</p>
+        </div>
+        <a href="#" id="follow">follow</a>
+
+    </div>
+    <div id="suggestion">
+        <img src="https://picsum.photos/200"
+    class="suggested_pfp" />
+        <div id="suggestion_name_div">
+        <p id="suggestion_name">person 5</p>
+        <p id="suggested_for_you">suggested for you</p>
+        </div>
+        <a href="#" id="follow">follow</a>
+
+    </div>
+-->
+
+</div>

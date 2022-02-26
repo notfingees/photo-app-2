@@ -1,0 +1,41 @@
+{% for card in posts %}
+
+
+<div id="card">
+    <div id="card_top">
+        <p id="card_top_username">{{card.get('user')['username']}}</p>
+        <i class="fas fa-ellipsis-h"></i>
+    
+    </div>
+    <img src={{card.get('image_url')}} class="card_photo" alt="{{card.get('user')['first_name']}} {{card.get('user')['last_name']}} Post picture"/>
+    
+    <div id="card_icons">
+        
+        <i class="far fa-heart"></i>
+        <i class="far fa-comment"></i>
+        <i class="far fa-paper-plane"></i>
+        <i id="save" class="far fa-save"></i>
+    
+    </div>
+    
+    <p><b>{{card.get('likes')}} likes</b></p>
+    
+    <p id="caption"><span id="caption_username"><b>{{card.get('user')['username']}}</b></span> {{card.get('title')}}<span id="caption_more"><a href="#"> more</a></span></p>
+    
+    {% if card.get('comments')|length > 1: %}
+        <p id="comment"><span id="comment_username"><b>{{card.get('comments')[0]['user']['username']}}</b></span> {{card.get('comments')[0]['text']}}</p>
+        <button>View all {{card.get('comments')|length}} comments</button>
+    {% elif card.get('comments')|length == 1: %}
+        <p id="comment"><span id="comment_username"><b>{{card.get('comments')[0]['user']['username']}}</b></span> {{card.get('comments')[0]['text']}}</p>
+    {% endif %}
+    
+    <div id="comments_section"></div>
+    <i class="far fa-smile"></i>
+    <label for="comment_input">Comment</label><input id="comment_input" type="text">
+    <a href="#">Post</a>
+
+    <p>{{card.get('display_time')}}</p>
+    </div>
+
+
+    {% endfor %}

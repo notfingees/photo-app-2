@@ -1,0 +1,6 @@
+Justin Shi Accessibility Reflection
+1. Everything conceptual I needed was on the Accessibility Resources page but I did consult w3schools and other javascript documentation (MDN) for how to actually implement specific things such as focusing on elements and getting element IDs (e.g. getting the modal button ID to focus on it upon close) 
+
+2. It was a decent amount of additional work to making the website accessible, especially with testing every feature. The most challenging part was modifying where the focus on the page was shifting to, and I know this gets much more complicated with larger scale projects/websites with multiple components etc.
+I think designing for accessibility in some ways improves the usability of the site for all users - for example, having the focus on the DOM change accordingly to user inputs is very convenient and maybe less clearly applicable for an Instagram clone but much more so for other web apps such as a calculator or a database editor (such as Google sheets, e.g. being able to tab your way through different cells, etc.) 
+

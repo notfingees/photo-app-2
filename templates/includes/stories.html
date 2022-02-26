@@ -1,0 +1,11 @@
+<div id="stories">
+    
+
+    {% for s in stories %}
+    <div id="story" tabindex="0" aria-labelledby="story">
+        <img src={{s.get('user')['profile_url']}}
+    class="story_pfp" alt="{{s.get('user')['first_name']}} {{s.get('user')['last_name']}} story profile picture"/>
+        <p id="story_name">{{s.get('user')['username']}}</p>
+    </div>
+    {% endfor %}
+</div>

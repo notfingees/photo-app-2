@@ -401,7 +401,6 @@ a{
     overflow: scroll;
     background-color: white;
     z-index: 2;
-    grid-template-columns: 1fr 5fr;
 }
 
 .modalBackground {

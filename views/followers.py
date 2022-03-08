@@ -2,9 +2,13 @@ from flask import Response, request
 from flask_restful import Resource
 from models import db, Following, User
 import json
+import flask_jwt_extended
+
+
 
 def get_path():
     return request.host_url + 'api/posts/'
+
 
 def user_followers(current_user):
     # query the "following" table to get the list of authorized users:
@@ -20,9 +24,11 @@ def user_followers(current_user):
     return user_ids
 
 class FollowerListEndpoint(Resource):
+    @flask_jwt_extended.jwt_required()
     def __init__(self, current_user):
         self.current_user = current_user
     
+    @flask_jwt_extended.jwt_required()
     def get(self):
 
         try:
@@ -60,5 +66,5 @@ def initialize_routes(api):
         FollowerListEndpoint, 
         '/api/followers', 
         '/api/followers/', 
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )

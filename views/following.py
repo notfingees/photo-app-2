@@ -2,6 +2,8 @@ from flask import Response, request
 from flask_restful import Resource
 from models import Following, User, db
 import json
+import flask_jwt_extended
+
 
 def get_path():
     return request.host_url + 'api/posts/'
@@ -23,9 +25,11 @@ def user_follows(current_user):
 
 
 class FollowingListEndpoint(Resource):
+
+    @flask_jwt_extended.jwt_required()
     def __init__(self, current_user):
         self.current_user = current_user
-    
+    @flask_jwt_extended.jwt_required()
     def get(self):
         try:
             following_ids = (
@@ -61,6 +65,8 @@ class FollowingListEndpoint(Resource):
             return Response(json.dumps(data), mimetype="application/json", status=200)
         except Exception as e:
             print("error in following get", e)
+
+    @flask_jwt_extended.jwt_required()
     def post(self):
         body = request.get_json()
         
@@ -101,9 +107,12 @@ class FollowingListEndpoint(Resource):
 
 
 class FollowingDetailEndpoint(Resource):
+
+    @flask_jwt_extended.jwt_required()
     def __init__(self, current_user):
         self.current_user = current_user
     
+    @flask_jwt_extended.jwt_required()
     def delete(self, id):
 
         try:
@@ -138,11 +147,11 @@ def initialize_routes(api):
         FollowingListEndpoint, 
         '/api/following', 
         '/api/following/', 
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )
     api.add_resource(
         FollowingDetailEndpoint, 
         '/api/following/<id>', 
         '/api/following/<id>/', 
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )

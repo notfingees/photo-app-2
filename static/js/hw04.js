@@ -7,9 +7,30 @@ const story2Html = story => {
     `;
 };
 
+const getCookie = key => {
+    let name = key + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+};
+
 // fetch data from your API endpoint:
 const displayStories = () => {
-    fetch('/api/stories')
+    fetch('/api/stories', {
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCookie('csrf_access_token')
+        },
+    })
         .then(response => response.json())
         .then(stories => {
             const html = stories.map(story2Html).join('\n');
@@ -39,7 +60,12 @@ function getProfileHTML(profile){
 
 const displayProfile = () => {
     console.log("in displayProfile");
-    fetch('/api/profile')
+    fetch('/api/profile', {
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCookie('csrf_access_token')
+        },
+    })
         .then(response => response.json())
         .then(profiles => {
             const html = getProfileHTML(profiles)//profiles.map(profile2Html);
@@ -67,7 +93,12 @@ const suggestion2HTML = suggestion => {
 
 const displaySuggested = () => {
 
-    fetch('/api/suggestions')
+    fetch('/api/suggestions', {
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCookie('csrf_access_token')
+        },
+    })
         .then(response => response.json())
         .then(suggestions => {
             const html = suggestions.map(suggestion2HTML).join('\n') //profiles.map(profile2Html);
@@ -166,6 +197,8 @@ fetch("http://127.0.0.1:5000/api/posts/" + String(postID) + "/likes/", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCookie('csrf_access_token')
+            
         },
         body: JSON.stringify(postData)
     })
@@ -184,6 +217,7 @@ fetch("http://127.0.0.1:5000/api/posts/" + String(postID) + "/likes/" + String(o
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCookie('csrf_access_token')
         },
         body: JSON.stringify(postData)
     })
@@ -203,6 +237,7 @@ fetch("http://127.0.0.1:5000/api/bookmarks/", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCookie('csrf_access_token')
         },
         body: JSON.stringify(postData)
     })
@@ -221,6 +256,7 @@ fetch("http://127.0.0.1:5000/api/bookmarks/" + String(otherID), {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCookie('csrf_access_token')
         },
         body: JSON.stringify(postData)
     })
@@ -245,6 +281,7 @@ fetch("http://127.0.0.1:5000/api/following/", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCookie('csrf_access_token')
         },
         body: JSON.stringify(postData)
     })
@@ -274,6 +311,7 @@ fetch("http://127.0.0.1:5000/api/following/" + String(userID), {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCookie('csrf_access_token')
         },
         body: JSON.stringify(postData)
     })
@@ -303,6 +341,7 @@ function comment(postID){
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': getCookie('csrf_access_token')
             },
             body: JSON.stringify(postData)
         })
@@ -351,7 +390,12 @@ function closeModal(){
 
 const displayPosts = () => {
 
-    fetch('/api/posts/?limit=10')
+    fetch('/api/posts/?limit=10', {
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCookie('csrf_access_token')
+        },
+    })
         .then(response => response.json())
         .then(posts => {
             const html = posts.map(post2HTML).join('\n') //profiles.map(profile2Html);

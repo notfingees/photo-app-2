@@ -3,6 +3,8 @@ from flask_restful import Resource
 from models import User, db, Following
 from . import get_authorized_user_ids
 import json
+import flask_jwt_extended
+
 
 def get_user_not_following(current_user):
     # query the "following" table to get the list of authorized users:
@@ -39,9 +41,11 @@ def get_user_not_following(current_user):
 
 class SuggestionsListEndpoint(Resource):
 
+    @flask_jwt_extended.jwt_required()
     def __init__(self, current_user):
         self.current_user = current_user
     
+    @flask_jwt_extended.jwt_required()
     def get(self):
         # Your code here:
         not_following = get_user_not_following(self.current_user)
@@ -59,5 +63,5 @@ def initialize_routes(api):
         SuggestionsListEndpoint, 
         '/api/suggestions', 
         '/api/suggestions/', 
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )
